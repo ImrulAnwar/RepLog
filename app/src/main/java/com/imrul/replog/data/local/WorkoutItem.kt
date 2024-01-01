@@ -2,8 +2,9 @@ package com.imrul.replog.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.imrul.replog.other.Constants.DATABASE_NAME
 
-@Entity(tableName = "workout_database")
+@Entity(tableName = DATABASE_NAME)
 data class WorkoutItem(
     var date: String,
     var weekDay: String,
