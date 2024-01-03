@@ -1,17 +1,13 @@
 package com.imrul.replog.repository
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import com.imrul.replog.data.local.BaseWorkoutItem
+import com.imrul.replog.data.local.WorkoutItem
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
 
-    suspend fun insertWorkout(workoutItem: BaseWorkoutItem)
+    suspend fun insertWorkout(workoutItem: WorkoutItem)
 
-    suspend fun deleteWorkout(workoutItem: BaseWorkoutItem)
+    suspend fun deleteWorkout(workoutItem: WorkoutItem)
 
-    fun observeAllWorkouts(): Flow<List<BaseWorkoutItem>>
+    fun observeAllWorkouts(): Flow<List<WorkoutItem>>
 }

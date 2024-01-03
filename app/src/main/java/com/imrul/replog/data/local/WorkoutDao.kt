@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorkout(workoutItem: BaseWorkoutItem)
+    suspend fun insertWorkout(workoutItem: WorkoutItem)
 
     @Delete
-    suspend fun deleteWorkout(workoutItem: BaseWorkoutItem)
+    suspend fun deleteWorkout(workoutItem: WorkoutItem)
 
     @Query("SELECT * FROM workout_database")
-    fun observeAllWorkouts(): Flow<List<BaseWorkoutItem>>
+    fun observeAllWorkouts(): Flow<List<WorkoutItem>>
 }

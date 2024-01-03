@@ -1,6 +1,6 @@
 package com.imrul.replog.data.local
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -42,11 +42,16 @@ class WorkoutDaoTest {
         database.close()
     }
 
+    @SuppressLint("CheckResult")
     @Test
     fun insertWorkoutTest() = runTest {
-        val workoutItem = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
-        dao.insertWorkout(workoutItem)
-        var allWorkouts: List<BaseWorkoutItem>? = null
+        val workoutItem1 = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
+        val workoutItem2 = BodyWeightWorkout("2023-12-27", "Wednesday", 2, 2, id = 2)
+        val workoutItem3 = CardioWorkout("2023-12-27", "Wednesday", 40, 2, id = 3)
+        dao.insertWorkout(workoutItem1)
+        dao.insertWorkout(workoutItem2)
+        dao.insertWorkout(workoutItem3)
+        var allWorkouts: List<WorkoutItem>? = null
 
         // Launch a coroutine job and store the reference to it
         val job = launch {
@@ -56,16 +61,24 @@ class WorkoutDaoTest {
         }
         testScheduler.apply { runCurrent() } // Adjust the time as needed
         job.cancelAndJoin()
-        Truth.assertThat(allWorkouts?.contains(workoutItem))
+        Truth.assertThat(allWorkouts?.contains(workoutItem1))
+        Truth.assertThat(allWorkouts?.contains(workoutItem2))
+        Truth.assertThat(allWorkouts?.contains(workoutItem3))
     }
 
     @Test
     fun deleteWorkoutTest() = runTest {
-        val workoutItem = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
-        dao.insertWorkout(workoutItem)
-        dao.deleteWorkout(workoutItem)
+        val workoutItem1 = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
+        val workoutItem2 = BodyWeightWorkout("2023-12-27", "Wednesday", 2, 2, id = 2)
+        val workoutItem3 = CardioWorkout("2023-12-27", "Wednesday", 40, 2, id = 3)
+        dao.insertWorkout(workoutItem1)
+        dao.insertWorkout(workoutItem2)
+        dao.insertWorkout(workoutItem3)
+        dao.deleteWorkout(workoutItem1)
+        dao.deleteWorkout(workoutItem2)
+        dao.deleteWorkout(workoutItem3)
 
-        var allWorkouts: List<BaseWorkoutItem>? = null
+        var allWorkouts: List<WorkoutItem>? = null
         val job = launch {
             dao.observeAllWorkouts().collect {
                 allWorkouts = it
