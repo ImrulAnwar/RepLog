@@ -1,20 +1,17 @@
-package com.imrul.replog.data.local
+package com.imrul.replog.repository
 
-import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.imrul.replog.data.local.BaseWorkoutItem
 import kotlinx.coroutines.flow.Flow
 
-@Dao
-interface WorkoutDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+interface WorkoutRepository {
+
     suspend fun insertWorkout(workoutItem: BaseWorkoutItem)
 
-    @Delete
     suspend fun deleteWorkout(workoutItem: BaseWorkoutItem)
 
-    @Query("SELECT * FROM workout_database")
     fun observeAllWorkouts(): Flow<List<BaseWorkoutItem>>
 }

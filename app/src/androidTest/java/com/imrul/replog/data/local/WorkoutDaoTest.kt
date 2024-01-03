@@ -1,5 +1,6 @@
 package com.imrul.replog.data.local
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -43,9 +44,10 @@ class WorkoutDaoTest {
 
     @Test
     fun insertWorkoutTest() = runTest {
-        val workoutItem = WorkoutItem("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
+        val workoutItem = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
         dao.insertWorkout(workoutItem)
-        var allWorkouts: List<WorkoutItem>? = null
+        var allWorkouts: List<BaseWorkoutItem>? = null
+
         // Launch a coroutine job and store the reference to it
         val job = launch {
             dao.observeAllWorkouts().collect {
@@ -59,11 +61,11 @@ class WorkoutDaoTest {
 
     @Test
     fun deleteWorkoutTest() = runTest {
-        val workoutItem = WorkoutItem("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
+        val workoutItem = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
         dao.insertWorkout(workoutItem)
         dao.deleteWorkout(workoutItem)
 
-        var allWorkouts: List<WorkoutItem>? = null
+        var allWorkouts: List<BaseWorkoutItem>? = null
         val job = launch {
             dao.observeAllWorkouts().collect {
                 allWorkouts = it
@@ -71,7 +73,6 @@ class WorkoutDaoTest {
         }
         testScheduler.apply { runCurrent() }
         job.cancelAndJoin()
-
         Truth.assertThat(allWorkouts).isEmpty()
     }
 
