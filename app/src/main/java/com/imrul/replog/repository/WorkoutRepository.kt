@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
 
-    suspend fun insertWorkout(workoutItem: WorkoutItem)
+    suspend fun insertWorkout(workoutItem: WorkoutItem):Long
 
     suspend fun deleteWorkout(workoutItem: WorkoutItem)
 

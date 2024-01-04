@@ -1,6 +1,7 @@
 package com.imrul.replog.data.local
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -45,9 +46,9 @@ class WorkoutDaoTest {
     @SuppressLint("CheckResult")
     @Test
     fun insertWorkoutTest() = runTest {
-        val workoutItem1 = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
-        val workoutItem2 = BodyWeightWorkout("2023-12-27", "Wednesday", 2, 2, id = 2)
-        val workoutItem3 = CardioWorkout("2023-12-27", "Wednesday", 40, 2, id = 3)
+        val workoutItem1 = WorkoutItem(date = "2024-01-04", weekDay = "Monday", type = WorkoutType.BODY_WEIGHT, sets = 3, reps = 12)
+        val workoutItem2 = WorkoutItem(date = "2024-01-04", weekDay = "Tuesday", type = WorkoutType.WEIGHTED, sets = 4, reps = 10, weight = 50.0f)
+        val workoutItem3 = WorkoutItem(date = "2024-01-04", weekDay = "Wednesday", type = WorkoutType.CARDIO, sets = 1, durationMinutes = 30)
         dao.insertWorkout(workoutItem1)
         dao.insertWorkout(workoutItem2)
         dao.insertWorkout(workoutItem3)
@@ -68,9 +69,20 @@ class WorkoutDaoTest {
 
     @Test
     fun deleteWorkoutTest() = runTest {
-        val workoutItem1 = WeightedWorkout("2023-12-27", "Wednesday", 25f, 2, reps = 12, id = 1)
-        val workoutItem2 = BodyWeightWorkout("2023-12-27", "Wednesday", 2, 2, id = 2)
-        val workoutItem3 = CardioWorkout("2023-12-27", "Wednesday", 40, 2, id = 3)
+        val workoutItem1 = WorkoutItem(date = "2024-01-04", weekDay = "Monday", type = WorkoutType.BODY_WEIGHT, sets = 3, reps = 12)
+        val workoutItem2 = WorkoutItem(date = "2024-01-04", weekDay = "Tuesday", type = WorkoutType.WEIGHTED, sets = 4, reps = 10, weight = 50.0f)
+        val workoutItem3 = WorkoutItem(date = "2024-01-04", weekDay = "Wednesday", type = WorkoutType.CARDIO, sets = 1, durationMinutes = 30)
+
+        // Insert workouts and get the generated IDs
+        val id1 = dao.insertWorkout(workoutItem1).toInt()
+        val id2 = dao.insertWorkout(workoutItem2).toInt()
+        val id3 = dao.insertWorkout(workoutItem3).toInt()
+
+        // Set the generated IDs to the workout items
+        workoutItem1.id = id1
+        workoutItem2.id = id2
+        workoutItem3.id = id3
+
         dao.insertWorkout(workoutItem1)
         dao.insertWorkout(workoutItem2)
         dao.insertWorkout(workoutItem3)
@@ -84,8 +96,16 @@ class WorkoutDaoTest {
                 allWorkouts = it
             }
         }
+
         testScheduler.apply { runCurrent() }
         job.cancelAndJoin()
+
+
+        if (allWorkouts == null) {
+            Log.d("TestLog", "allWorkouts is null")
+        } else {
+            Log.d("TestLog", "allWorkouts: $allWorkouts")
+        }
         Truth.assertThat(allWorkouts).isEmpty()
     }
 

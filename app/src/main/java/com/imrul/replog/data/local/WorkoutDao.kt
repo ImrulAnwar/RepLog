@@ -6,15 +6,16 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import com.imrul.replog.other.Constants.DATABASE_NAME
 
 @Dao
 interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorkout(workoutItem: WorkoutItem)
+    suspend fun insertWorkout(workoutItem: WorkoutItem):Long
 
     @Delete
     suspend fun deleteWorkout(workoutItem: WorkoutItem)
 
-    @Query("SELECT * FROM workout_database")
+    @Query("SELECT * FROM $DATABASE_NAME")
     fun observeAllWorkouts(): Flow<List<WorkoutItem>>
 }

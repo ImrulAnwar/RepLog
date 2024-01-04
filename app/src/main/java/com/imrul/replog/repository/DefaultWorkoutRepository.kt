@@ -8,8 +8,8 @@ import javax.inject.Inject
 class DefaultWorkoutRepository @Inject constructor(
     private val workoutDao: WorkoutDao
 ) : WorkoutRepository {
-    override suspend fun insertWorkout(workoutItem: WorkoutItem) {
-        workoutDao.insertWorkout(workoutItem)
+    override suspend fun insertWorkout(workoutItem: WorkoutItem): Long {
+        return workoutDao.insertWorkout(workoutItem)
     }
 
     override suspend fun deleteWorkout(workoutItem: WorkoutItem) {
