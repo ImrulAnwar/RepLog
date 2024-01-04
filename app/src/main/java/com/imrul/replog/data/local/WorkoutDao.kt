@@ -11,7 +11,7 @@ import com.imrul.replog.other.Constants.DATABASE_NAME
 @Dao
 interface WorkoutDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorkout(workoutItem: WorkoutItem):Long
+    suspend fun insertWorkout(workoutItem: WorkoutItem):Long?
 
     @Delete
     suspend fun deleteWorkout(workoutItem: WorkoutItem)

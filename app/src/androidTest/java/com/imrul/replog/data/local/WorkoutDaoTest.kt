@@ -72,9 +72,9 @@ class WorkoutDaoTest {
         val workoutItem2 =BodyWeightWorkout("2023-12-27", "Wednesday", 2, 2)
         val workoutItem3 =CardioWorkout("2023-12-27", "Wednesday", 40, 2)
 
-        workoutItem1.id = dao.insertWorkout(workoutItem1).toInt()
-        workoutItem2.id = dao.insertWorkout(workoutItem2).toInt()
-        workoutItem3.id = dao.insertWorkout(workoutItem3).toInt()
+        workoutItem1.id = dao.insertWorkout(workoutItem1)?.toInt()
+        workoutItem2.id = dao.insertWorkout(workoutItem2)?.toInt()
+        workoutItem3.id = dao.insertWorkout(workoutItem3)?.toInt()
 
         dao.deleteWorkout(workoutItem1)
         dao.deleteWorkout(workoutItem2)
@@ -85,7 +85,6 @@ class WorkoutDaoTest {
             dao.observeAllWorkouts().collect {
                 allWorkouts = it
             }
-            println("hello"+allWorkouts)
         }
 
         testScheduler.apply { runCurrent() }

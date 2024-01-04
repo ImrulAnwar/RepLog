@@ -8,9 +8,10 @@ class FakeWorkoutRepository :WorkoutRepository{
     private val workoutItems = mutableListOf<WorkoutItem>()
     private val observableWorkoutItems = MutableStateFlow<List<WorkoutItem>>(workoutItems)
 
-    override suspend fun insertWorkout(workoutItem: WorkoutItem) {
+    override suspend fun insertWorkout(workoutItem: WorkoutItem): Long? {
         workoutItems.add(workoutItem)
         observableWorkoutItems.value = workoutItems.toList()
+        return workoutItem.id?.toLong()
     }
 
     override suspend fun deleteWorkout(workoutItem: WorkoutItem) {
