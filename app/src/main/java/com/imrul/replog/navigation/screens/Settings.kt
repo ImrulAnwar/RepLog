@@ -1,4 +1,4 @@
-package com.imrul.replog.screens
+package com.imrul.replog.navigation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
