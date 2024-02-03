@@ -1,4 +1,4 @@
-package com.imrul.replog.repository
+package com.imrul.replog.data.repository
 
 import com.imrul.replog.data.local.WorkoutItem
 import com.imrul.replog.data.local.WorkoutDao

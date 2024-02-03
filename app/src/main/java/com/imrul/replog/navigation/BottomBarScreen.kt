@@ -16,23 +16,23 @@ sealed class BottomBarScreen(
     val hasNews: Boolean,
     val badgeCount: Int? = null
 ) {
-    object Home : BottomBarScreen(
-        title = "Home",
+    object TodayScreen : BottomBarScreen(
+        title = "Today",
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false,
     )
 
-    object Chat : BottomBarScreen(
-        title = "Chat",
+    object ProgressScreen : BottomBarScreen(
+        title = "Progress",
         selectedIcon = Icons.Filled.Email,
         unselectedIcon = Icons.Outlined.Email,
         hasNews = false,
         badgeCount = 45
     )
 
-    object Settings : BottomBarScreen(
-        title = "Settings",
+    object HistoryScreen : BottomBarScreen(
+        title = "History",
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings,
         hasNews = true,

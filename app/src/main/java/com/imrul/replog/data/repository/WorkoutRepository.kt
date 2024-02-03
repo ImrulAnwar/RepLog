@@ -1,4 +1,4 @@
-package com.imrul.replog.repository
+package com.imrul.replog.data.repository
 
 import com.imrul.replog.data.local.WorkoutItem
 import kotlinx.coroutines.flow.Flow

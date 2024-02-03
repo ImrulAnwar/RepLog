@@ -1,4 +1,4 @@
-package com.imrul.replog
+package com.imrul.replog.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -34,9 +34,9 @@ class MainActivity : ComponentActivity() {
             RepLogTheme {
                 val navController = rememberNavController()
                 val screens = listOf(
-                    BottomBarScreen.Home,
-                    BottomBarScreen.Chat,
-                    BottomBarScreen.Settings
+                    BottomBarScreen.TodayScreen,
+                    BottomBarScreen.ProgressScreen,
+                    BottomBarScreen.HistoryScreen
                 )
                 var selectedItemIndex by rememberSaveable { mutableStateOf(0) }
 
@@ -83,8 +83,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
 
 
 

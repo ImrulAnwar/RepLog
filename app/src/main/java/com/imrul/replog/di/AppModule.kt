@@ -2,8 +2,11 @@ package com.imrul.replog.di
 
 import android.content.Context
 import androidx.room.Room
+import com.imrul.replog.data.local.WorkoutDao
 import com.imrul.replog.data.local.WorkoutDatabase
 import com.imrul.replog.other.Constants.DATABASE_NAME
+import com.imrul.replog.data.repository.DefaultWorkoutRepository
+import com.imrul.replog.data.repository.WorkoutRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +29,10 @@ object AppModule {
     fun provideWorkoutDao(
         database: WorkoutDatabase
     ) = database.workoutDao()
+
+    @Singleton
+    @Provides
+    fun provideDefaultShoppingRepository(
+        dao: WorkoutDao
+    ) = DefaultWorkoutRepository(dao) as WorkoutRepository
 }

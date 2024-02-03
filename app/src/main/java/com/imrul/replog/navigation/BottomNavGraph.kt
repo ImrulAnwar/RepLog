@@ -4,18 +4,18 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.imrul.replog.navigation.screens.FirstScreen
-import com.imrul.replog.navigation.screens.SecondScreen
-import com.imrul.replog.navigation.screens.ThirdScreen
+import com.imrul.replog.ui.today.TodayScreen
+import com.imrul.replog.ui.history.HistoryScreen
+import com.imrul.replog.ui.progress.ProgressScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
     NavHost(
         navController,
-        startDestination = BottomBarScreen.Home.title
+        startDestination = BottomBarScreen.TodayScreen.title
     ) {
-        composable(BottomBarScreen.Home.title) { FirstScreen() }
-        composable(BottomBarScreen.Chat.title) { SecondScreen() }
-        composable(BottomBarScreen.Settings.title) { ThirdScreen() }
+        composable(BottomBarScreen.TodayScreen.title) { TodayScreen() }
+        composable(BottomBarScreen.ProgressScreen.title) { HistoryScreen() }
+        composable(BottomBarScreen.HistoryScreen.title) { ProgressScreen() }
     }
 }

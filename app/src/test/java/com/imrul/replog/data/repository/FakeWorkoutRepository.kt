@@ -1,10 +1,11 @@
-package com.imrul.replog.repository
+package com.imrul.replog.data.repository
 
 import com.imrul.replog.data.local.WorkoutItem
+import com.imrul.replog.data.repository.WorkoutRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class FakeWorkoutRepository :WorkoutRepository{
+class FakeWorkoutRepository : WorkoutRepository {
     private val workoutItems = mutableListOf<WorkoutItem>()
     private val observableWorkoutItems = MutableStateFlow<List<WorkoutItem>>(workoutItems)
 
